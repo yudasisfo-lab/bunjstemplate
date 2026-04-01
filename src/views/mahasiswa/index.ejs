@@ -1,0 +1,70 @@
+<% if (success) { %>
+    <div class="bg-green-500 text-white p-3 rounded mb-4">
+        <%= success %>
+    </div>
+    <% } %>
+
+<% if (error) { %>
+    <div class="bg-red-500 text-white p-3 rounded mb-4">
+        <%= error %>
+    </div>
+    <% } %>
+                <div class="bg-white p-6 rounded-2xl shadow">
+                    <div class="flex justify-between mb-4">
+                        <h2 class="text-xl font-bold">Data Mahasiswa</h2>
+                        <a href="/mahasiswa/create" class="bg-blue-500 text-white px-4 py-2 rounded">
+                            + Tambah
+                        </a>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full border">
+                            <thead class="bg-gray-200">
+                                <tr>
+                                    <th class="p-2 border">No</th>
+                                    <th class="p-2 border">Nama</th>
+                                    <th class="p-2 border">NIM</th>
+                                    <th class="p-2 border">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% mahasiswa.forEach((m, i)=> { %>
+                                    <tr>
+                                        <td class="p-2 border">
+                                            <%= i+1 %>
+                                        </td>
+                                        <td class="p-2 border">
+                                            <%= m.nama %>
+                                        </td>
+                                        <td class="p-2 border">
+                                            <%= m.nim %>
+                                        </td>
+                                        <td class="p-2 border space-x-2">
+                                            <a href="/mahasiswa/edit/<%= m.id %>" class="text-yellow-600">Edit</a>
+                                            <a href="#" onclick="confirmDelete('<%= m.id %>')" class="text-red-600">
+                                                Hapus
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <script>
+                    function confirmDelete(id) {
+                        Swal.fire({
+                            title: 'Yakin?',
+                            text: "Data akan dihapus permanen!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#d33',
+                            confirmButtonText: 'Ya, hapus!',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = '/mahasiswa/delete/' + id;
+                            }
+                        });
+                    }
+                </script>
